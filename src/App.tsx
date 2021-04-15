@@ -2,13 +2,10 @@ import './App.css';
 import { Button, Grid } from '@material-ui/core';
 import { ProductCard } from 'components/ProductCard';
 import { useAuth0 } from '@auth0/auth0-react';
-import { request, GraphQLClient, gql } from 'graphql-request';
+import { gql } from 'graphql-request';
 import { useEffect } from 'react';
 import useSWR from 'swr';
 import { client, fetcher } from 'services/client';
-
-const domain = process.env.REACT_APP_AUTH0_DOMAIN;
-const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 
 const query = gql`
   query getProducts {
@@ -33,9 +30,9 @@ function App() {
       }
     }
     getToken();
-  }, [isAuthenticated]);
+  }, [isAuthenticated, getAccessTokenSilently]);
 
-  const data = useSWR(query, fetcher);
+  useSWR(query, fetcher);
 
   return (
     <div>
