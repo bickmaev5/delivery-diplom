@@ -1,0 +1,8 @@
+schema: 'https://positive-reptile-24.hasura.app/v1/graphql'
+extensions:
+  codegen:
+    generates:
+      ./src/generated-frontend.ts:
+        plugins:
+          - typescript
+          - typescript-graphql-request
