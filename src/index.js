@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from '@auth0/auth0-react';
+import { SWRConfig } from 'swr';
+import { fetcher } from 'services/client';
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
@@ -16,7 +18,13 @@ ReactDOM.render(
       redirectUri={window.location.origin}
       audience="https://dev-4oaejg61.eu.auth0.com/api/v2/"
     > 
-      <App />
+      <SWRConfig
+        value={{
+          fetcher,
+        }}
+      >
+        <App />
+      </SWRConfig>
     </Auth0Provider>
   </React.StrictMode>,
   document.getElementById('root')
