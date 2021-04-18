@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { client } from 'services/client';
 
 function App() {
-  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated, isLoading } = useAuth0();
   useEffect(() => {
     async function getToken() {
       if (isAuthenticated) {
@@ -18,7 +18,7 @@ function App() {
       }
     }
     getToken();
-  }, [isAuthenticated, getAccessTokenSilently]);
+  }, [isAuthenticated, getAccessTokenSilently, isLoading]);
 
 
   return (

@@ -1,4 +1,5 @@
 import { Grid, Typography } from "@material-ui/core";
+import { ProductCard } from "components/ProductCard";
 import { useCatalog } from "hooks/useCatalog";
 import { FC } from "react";
 
@@ -11,11 +12,17 @@ export const Catalog: FC = () => {
   return (
     <Grid container>
       {data.catalog.map((item) => (
-        <Grid item key={item.id}>
+        <Grid item key={item.id} xs={12}>
           <Typography variant="h5">{item.name}</Typography>
-          <Grid container>
+          <Grid container spacing={2}>
             {item.products.map((product) => (
-              <Grid item key={item.id}>{product.name}</Grid>
+              <Grid item key={product.id} md={3} xs={12}>
+                <ProductCard
+                  name={product.name}
+                  picture={product.picture}
+                  description={product.description}
+                />
+              </Grid>
             ))}
           </Grid>
         </Grid>

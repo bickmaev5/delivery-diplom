@@ -10,6 +10,8 @@ const query = gql`
       products {
         id
         name
+        picture
+        description
       }
     }
   }
