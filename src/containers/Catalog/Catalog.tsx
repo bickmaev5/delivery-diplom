@@ -12,7 +12,7 @@ export const Catalog: FC = () => {
   const dispatch = useDispatch();
   const isLoading = !data && !error;
   useEffect(() => {
-    const items = ls.get<CartItem[]>('cart')
+    const items = ls.get<CartItem[]>('cart') || []
     dispatch(addCart.saveToState(items));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
