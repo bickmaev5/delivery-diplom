@@ -3,6 +3,7 @@ import { Badge, Button, Container, Grid, Paper, Typography } from "@material-ui/
 import { ShoppingCart } from "@material-ui/icons";
 import { FC } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { ApplicationState } from "store";
 import { useStyles } from "./Header.styles"
 
@@ -19,9 +20,11 @@ export const Header: FC = () => {
             <Grid item>
               <Grid container alignItems="center">
                 <Grid item>
-                  <Typography className={classes.username}>
-                    Delivery Diplom
-                  </Typography>
+                  <Link to="/">
+                    <Typography className={classes.username}>
+                      Delivery Diplom
+                    </Typography>
+                  </Link>
                 </Grid>
               </Grid>
             </Grid>
@@ -50,9 +53,11 @@ export const Header: FC = () => {
                   </>
                 )}
                 <Grid item>
-                  <Badge badgeContent={count} color="secondary">
-                    <ShoppingCart color="secondary"/>
-                  </Badge>
+                  <Link to="/cart">
+                    <Badge badgeContent={count} color="secondary">
+                      <ShoppingCart color="secondary"/>
+                    </Badge>
+                  </Link>
                 </Grid>
               </Grid>
             </Grid>

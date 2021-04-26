@@ -1,21 +1,12 @@
 import { Grid, Typography } from "@material-ui/core";
 import { ProductCard } from "components/ProductCard";
 import { useCatalog } from "hooks/useCatalog";
-import { FC, useEffect } from "react";
-import { addCart } from "store/cart/actions";
-import { CartItem } from "store/cart/types";
-import * as ls from 'local-storage';
-import { useDispatch } from "react-redux";
+import { FC } from "react";
 
 export const Catalog: FC = () => {
   const { data, error } = useCatalog();
-  const dispatch = useDispatch();
   const isLoading = !data && !error;
-  useEffect(() => {
-    const items = ls.get<CartItem[]>('cart') || []
-    dispatch(addCart.saveToState(items));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   if (isLoading || !data) {
     return null;
   }
