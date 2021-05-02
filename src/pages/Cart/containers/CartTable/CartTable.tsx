@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { Box, Grid, Typography } from "@material-ui/core";
 import { DataGrid, GridColDef } from "@material-ui/data-grid";
 import { Products } from "generated-frontend";
@@ -7,6 +8,8 @@ import { FC, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { ApplicationState } from "store";
 import useSWR from "swr";
+import { CartAuthorize } from "../CartOffer/CartAuthorize";
+import { CartOffer } from "../CartOffer/CartOffer";
 
 const query = gql`
   query MyQuery($ids: [Int!]) {
@@ -35,6 +38,7 @@ export const CartTable: FC = () => {
   const params = useMemo(() => {
     return { ids: cartItems.map(item => item.id) };
   }, [cartItems])
+  const { isAuthenticated } = useAuth0();
   
   const { data, error } = useSWR<{ products: Products[]}>([
     query,
@@ -64,6 +68,10 @@ export const CartTable: FC = () => {
       </Typography>
       <Box height="400px">
         <DataGrid columns={columns} rows={rows|| []}  pageSize={5}/>
+      </Box>
+      <Box>
+        {!isAuthenticated &&  <CartAuthorize />}
+        {isAuthenticated &&  <CartOffer />}
       </Box>
     </Grid>
   );

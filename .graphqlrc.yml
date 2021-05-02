@@ -1,4 +1,4 @@
-schema: 'https://positive-reptile-24.hasura.app/v1/graphql'
+schema: ./schema.graphql
 extensions:
   codegen:
     generates:

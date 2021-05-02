@@ -13,6 +13,7 @@
     "@types/react-dom": "^17.0.3",
     "connected-react-router": "^6.9.1",
     "deox": "^3.3.1",
+    "formik": "^2.2.6",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
     "history": "4.10.1",
