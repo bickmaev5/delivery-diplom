@@ -1,4 +1,4 @@
-import { Store, createStore, applyMiddleware, compose } from 'redux';
+import { Store, createStore, applyMiddleware } from 'redux';
 // `react-router-redux` is deprecated, so we use `connected-react-router`.
 // This provides a Redux middleware which connects to our `react-router` instance.
 import { routerMiddleware } from 'connected-react-router';
@@ -11,11 +11,11 @@ import { History } from 'history';
 import middlewares, { sagaMiddleware } from 'store/middlewares';
 import { rootSaga } from 'sagas';
 import reducers from './store';
+import { composeWithDevTools } from 'redux-devtools-extension';
 //@ts-ignore
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 function configureStore(history: History, initialState: any): Store<any> {
   // create the composing function for our middlewares
-  const composeEnhancer = composeEnhancers({
+  const composeEnhancer = composeWithDevTools({
     trace: true,
     traceLimit: 25,
     name: 'diplima',
