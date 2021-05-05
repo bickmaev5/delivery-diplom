@@ -20,14 +20,6 @@ const query = gql`
   }
 `;
 
-// const createCart = gql`
-// mutation createCart($object: shoppingCart_insert_input!) {
-//   insert_shoppingCart_one(object: $object) {
-//     userId
-//   }
-// }
-// `;
-
 const columns: GridColDef[] = [
   { field: "name", headerName: "Название продукта", width: 270 },
   { field: "count", headerName: "Количество", width: 270 },

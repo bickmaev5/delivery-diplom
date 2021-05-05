@@ -43,9 +43,14 @@ export function* removeFromCart(action: ActionType<typeof addCart.remove>) {
   yield put(addCart.saveToState(currentCart));
 }
 
+export function* clearCartSaga() {
+  yield call(ls.set, 'cart', []);
+}
+
 export function* cartSagas() {
   yield all([
     takeLatest(getType(addCart.next), addToCart),
-    takeLatest(getType(addCart.remove), removeFromCart)
+    takeLatest(getType(addCart.remove), removeFromCart),
+    takeLatest(getType(addCart.clearCart), clearCartSaga)
   ])
 }

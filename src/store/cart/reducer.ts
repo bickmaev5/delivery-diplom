@@ -10,5 +10,6 @@ export const cartReducer = createReducer(initialState, (handle) => [
   handle(addCart.saveToState, (state, { payload }) => ({
     ...state,
     items: payload,
-  }))
+  })),
+  handle(addCart.clearCart, () => initialState)
 ]);
