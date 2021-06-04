@@ -9,6 +9,7 @@ const query = gql`
     users_by_pk(id: $id) {
       id,
       name,
+      phone
     }
   }
 `;
@@ -19,5 +20,6 @@ export const useUser = () => {
     id: user.sub,
   }), [user]);
   const data = useSWR<{ users_by_pk: Users}>([query, params])
+  console.log(data);
   return data.data?.users_by_pk
 }

@@ -1,9 +1,9 @@
 import { Backdrop, Box, Button, Fade, Grid, makeStyles, Modal, Paper, TextField, Typography } from "@material-ui/core";
-import { Field, Form, Formik } from "formik";
+import { Field, FieldProps, Form, Formik } from "formik";
 import { CartItems_Insert_Input } from "generated-frontend";
 import { gql } from "graphql-request";
 import { useUser } from "hooks/useUser";
-import React, { memo, useMemo, useState, VFC } from "react";
+import React, { memo, useState, VFC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { fetcher } from "services/client";
@@ -53,6 +53,7 @@ const insertCartItems = gql`
 
 const CartOfferComponent: VFC = () => {
   const user = useUser();
+  console.log(user);
   const cartItems = useSelector((state: ApplicationState) => state.cart.items);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -84,15 +85,15 @@ const CartOfferComponent: VFC = () => {
     handleOpen();
   }
 
-  const initialValues = useMemo(() => ({
+  const initialValues = {
     phone: user?.phone || '',
-  }), [user])
+  }
 
   return (
     <>
       <Box mt={5}>
-        <Formik<FormValues> onSubmit={onSubmit} initialValues={initialValues} validationSchema={schema}>
-          {({ errors, touched }) => (
+        <Formik<FormValues> onSubmit={onSubmit} initialValues={initialValues} validationSchema={schema} enableReinitialize>
+          {({ errors }) => (
             <Form>
               <Grid container direction="column" spacing={4}>
                 <Grid item>
@@ -100,14 +101,19 @@ const CartOfferComponent: VFC = () => {
                     Нам необходим ваш номер телефона для того, что бы курьер или сборщик смог с вами связаться
                   </Typography>
                   <br/>
-                  <Field
-                    component={TextField}
-                    name="phone"
-                    label="Номер телефона"
-                    disabled={user?.phone}
-                    error={touched.phone}
-                    helperText={errors.phone}
-                  />
+                  <Field name="phone">
+                    {({ field, meta }: FieldProps) => (
+                      <TextField
+                        name={field.name}
+                        disabled={Boolean(user?.phone)}
+                        onChange={field.onChange}
+                        onBlur={field.onBlur}
+                        value={field.value}
+                        error={meta.touched && Boolean(errors.phone)}
+                        helperText={errors.phone}
+                      />
+                    )}
+                  </Field>
                 </Grid>
                 <Grid item md={3}>
                   <Button variant="contained" color="secondary" type="submit" fullWidth>Заказать</Button> 
